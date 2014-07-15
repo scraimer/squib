@@ -6,7 +6,7 @@ module Squib
     attr_reader :width, :height
     attr_reader :cards
 
-    def initialize(width: 825, height: 1125, cards: 3)
+    def initialize(width, height, cards)
       @width=width; @height=height
       @cards = []
       cards.times{ @cards << Squib::Card.new(width, height) }
