@@ -14,7 +14,12 @@ module Squib
       @cairo_context = Cairo::Context.new(@cairo_surface)
     end
 
-    require 'squib/graphics/draw_text'
+    ########################
+    ### BACKEND GRAPHICS ###
+    ########################
+    Dir[File.dirname(__FILE__) + 'graphics/*.rb'].each do |file| 
+      require File.basename(file, File.extname(file))
+    end
     
 	end
 

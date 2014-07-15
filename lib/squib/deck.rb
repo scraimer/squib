@@ -1,17 +1,15 @@
 require 'squib/card'
 
-
 module Squib
-
   class Deck
     include Enumerable
-    attr_reader :width, :height, :num_cards
+    attr_reader :width, :height
+    attr_reader :cards
 
-    def initialize(width: , height: , cards: , &block)
-      @width=width; @height=height; @num_cards=cards
+    def initialize(width: 825, height: 1125, cards: 3)
+      @width=width; @height=height
       @cards = []
-      num_cards.times{ @cards << Squib::Card.new(width, height) }
-      instance_eval(&block)
+      cards.times{ @cards << Squib::Card.new(width, height) }
     end
 
     def [](key)
@@ -26,11 +24,9 @@ module Squib
     ##################
     ### PUBLIC API ###
     ##################
-    require 'squib/api/text'
-
-    
-
-
+    Dir[File.dirname(__FILE__) + 'api/*.rb'].each do |file| 
+      require File.basename(file, File.extname(file))
+    end
 
   end
 end
