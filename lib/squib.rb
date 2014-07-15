@@ -6,15 +6,10 @@ require 'squib/graphics/background'
 require 'squib/deck'
 require 'squib/card'
 
-# module Squib
-#   @@the_deck = nil
-
-#   def self.the_deck=(d)
-#     @@the_deck = d 
-#   end
-
-#   def self.the_deck
-#     @@the_deck 
-#   end
-# end
+class Squib
+  def self.deck(width: 825, height: 1125, cards: 1. &block)
+    d = Squib::Deck.new(width, height, cards)
+    d.instance_eval(&block)
+  end
+end
 

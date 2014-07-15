@@ -1,5 +1,7 @@
 require 'cairo'
 
+
+
 module Squib
 
 	class Card
@@ -11,6 +13,9 @@ module Squib
       @cairo_surface = Cairo::ImageSurface.new(width,height)
       @cairo_context = Cairo::Context.new(@cairo_surface)
     end
+
+    require 'squib/graphics/draw_text'
+    
 	end
 
 end
