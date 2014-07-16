@@ -6,10 +6,13 @@ module Squib
     attr_reader :width, :height
     attr_reader :cards
 
-    def initialize(width, height, cards)
+    def initialize(width: 825, height: 1125, cards: 1, &block)
       @width=width; @height=height
       @cards = []
       cards.times{ @cards << Squib::Card.new(width, height) }
+      if block_given?
+        instance_eval(&block)
+      end
     end
 
     def [](key)
@@ -21,12 +24,21 @@ module Squib
       @cards.each { |card| block.call(card) }
     end
 
+    def rangeify (range)
+      range = 0..(@cards.size-1) if range == :all
+      range = range..range if range.is_a? Integer
+      return range
+    end
+
     ##################
     ### PUBLIC API ###
     ##################
-    Dir[File.dirname(__FILE__) + 'api/*.rb'].each do |file| 
-      require File.basename(file, File.extname(file))
-    end
+    require 'squib/api/background'
+    require 'squib/api/data'
+    require 'squib/api/image'
+    require 'squib/api/save'
+    require 'squib/api/shapes'
+    require 'squib/api/text'
 
   end
 end

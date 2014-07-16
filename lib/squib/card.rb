@@ -1,7 +1,5 @@
 require 'cairo'
 
-
-
 module Squib
 
 	class Card
@@ -17,9 +15,11 @@ module Squib
     ########################
     ### BACKEND GRAPHICS ###
     ########################
-    Dir[File.dirname(__FILE__) + 'graphics/*.rb'].each do |file| 
-      require File.basename(file, File.extname(file))
-    end
+    require 'squib/graphics/background'
+    require 'squib/graphics/save_doc'
+    require 'squib/graphics/save_images'
+    require 'squib/graphics/shapes'
+    require 'squib/graphics/text'
     
 	end
 

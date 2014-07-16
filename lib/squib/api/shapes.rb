@@ -1,14 +1,13 @@
 module Squib
   class Deck
-    module API
-
-      def rect(range: :all, x:, y:, width:, height:, x_radius: 0, y_radius: 0)
-        deck = Squib::the_deck
-        range = 0..(deck.num_cards-1) if range == :all
-        range.each do |i|
-        Squib::Graphics::Rectangle.new(deck[i], x, y, width, height, x_radius, y_radius).execute
+    
+    def rect(range: :all, x: 0, y: 0, width: 825, height: 1125, \
+              x_radius: 0, y_radius: 0)
+      range = rangeify(range)
+      range.each do |i|
+        @cards[i].draw_rectangle(x, y, width, height, x_radius, y_radius)
       end
-      
     end
+    
   end
 end

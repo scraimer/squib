@@ -1,10 +1,6 @@
 module Squib
   class Deck
-    module API
-
-      def csv(file:, header: true)
-      end
-
+    def csv(file: 'deck.csv', header: true)
     end
   end
 end

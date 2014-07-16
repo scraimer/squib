@@ -1,13 +1,12 @@
 module Squib
   class Deck
-    module API
+    #module API
 
-      def background(color)
-        Squib::the_deck.each do |card|
-          Squib::Graphics::Background.new(card, color).execute
-        end
+      def background(range: :all, color: '#000000')
+        range = rangeify(range)
+        range.each { |i| @cards[i].background(color) }
       end
       
-    end
+    #end
   end
 end
