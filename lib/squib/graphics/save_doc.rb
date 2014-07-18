@@ -1,19 +1,23 @@
 module Squib
   class Deck
 
-    def save_pdf
+    def save_pdf(file: 'deck.pdf', dir: '_output')
       #paper is 8.5x11
       # PDF points are 1/72 of an inch
-      raise "Not implemented yet!"
-      width = 8.5 * 72
-      height = 11 * 72
-      cc = Cairo::Context.new(Cairo::PDFSurface.new('_img/deck.pdf', width, height))
-      x = 10
-      y = 10
+      width = 8.5 * @dpi
+      height = 11 * @dpi
+      cc = Cairo::Context.new(Cairo::PDFSurface.new("#{dir}/#{file}", width, height))
+      margin = 50 #paper margin in px
+      x = margin
+      y = margin
       @cards.each_with_index do |card, i|
         cc.move_to(x,y)
-        x += 825*i
-        cc.set_source(card.cairo_surface, 0, 300)
+        cc.set_source(card.cairo_surface, x,y)
+        x = (card.width * i)
+        if x > (width - margin)
+          x = margin 
+          y += card.height
+        end
         cc.paint
       end
     end
