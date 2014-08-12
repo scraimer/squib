@@ -4,7 +4,6 @@ module Squib
     # :nodoc:
     # @api private 
     def save_png(i, dir, prefix, rotate)
-      @cairo_surface.flush
       if rotate
         surface = rotated_image
       else
@@ -13,16 +12,16 @@ module Squib
       write_png(surface, i, dir, prefix)
     end
 
+    # :nodoc:
+    # @api private
     def rotated_image
       rotated_cc = Cairo::Context.new(Cairo::ImageSurface.new(@height, @width) )
-      rotated_cc.save
+      rotated_cc.translate(@height * 0.5, @width * 0.5)
+      rotated_cc.rotate(0.5 * Math::PI)
+      rotated_cc.translate(@width * -0.5, @height * -0.5)
       rotated_cc.set_source(@cairo_surface)
-      rotated_cc.move_to(0,0)
-      rotated_cc.rotate(1.5 * Math::PI)
       rotated_cc.paint
-      rotated_cc.restore
       rotated_cc.target
-
     end
     # :nodoc:
     # @api private 
