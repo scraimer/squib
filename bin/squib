@@ -15,5 +15,16 @@ Mercenary.program(:squib) do |p|
       Squib::Commands::New.new.process(args)
     end
   end
+
+  p.command(:tgc) do |c|
+    c.syntax "tgc [--dry-run]"
+    c.description "Upload your files to the TheGameCrafter.com." 
+    c.option 'dry run', '--dry-run', 'Attempt to upload without actually uploading files'
+
+    c.action do |args, options|
+      case options
+      Squib::Commands::TheGameCrafter.new.process(args)
+    end
+  end
   
 end
