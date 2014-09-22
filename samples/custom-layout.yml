@@ -37,3 +37,26 @@ icon_middle:
 icon_right:
   <<: *icon
   x: 550
+
+# Squib also supports its own merging-and-modify feature
+# Called "extends"
+# Any layout can extend another layout, so long as it's not a circle
+# Order doesn't matter since it's done after YAML procesing
+# And, if the entry overrides 
+bonus: #becomes our bonus rectangle
+  x: 250
+  y: 600
+  width:  200
+  height: 200
+bonus_inner: 
+  extends: bonus 
+  x: += 10 # i.e. 260
+  y: += 10 # i.e. 610
+  width: -= 20  # i.e. 180
+  height: -= 20 # i.e. 180
+bonus_text:
+  extends: bonus_inner
+  x: +=10
+  y: +=10
+  width: -= 20
+  height: -= 20
