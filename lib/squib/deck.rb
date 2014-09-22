@@ -122,7 +122,13 @@ module Squib
       h = {}
       parent_keys.each do |parent_key|
         from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
-          child_val #child overrides parent when merging 
+          if child_val.to_s.strip.start_with?('+=')
+            parent_val + child_val.sub("+=",'').strip.to_f
+          elsif child_val.to_s.strip.start_with?('-=')
+            parent_val - child_val.sub("-=",'').strip.to_f
+          else 
+            child_val #child overrides parent when merging, no +=
+          end
         end 
         h = h.merge(from_extends) do |key, older_sibling, younger_sibling|
           younger_sibling #when two siblings have the same entry, the "younger" (lower one) overrides

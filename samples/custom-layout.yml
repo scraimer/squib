@@ -41,14 +41,16 @@ icon_right:
 bonus: #becomes our bonus rectangle
   x: 250
   y: 600
-  width:  200
+  width:  300
   height: 200
+  radius: 32
 bonus_inner: 
   extends: bonus 
   x: += 10 # i.e. 260
   y: += 10 # i.e. 610
   width: -= 20  # i.e. 180
   height: -= 20 # i.e. 180
+  radius: -= 8
 bonus_text:
   extends: bonus_inner
   x: +=10
