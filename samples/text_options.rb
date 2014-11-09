@@ -25,6 +25,9 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: 'Font string sizes can be overridden per card.', x: 65, y: 350,
        font: 'Impact 36', font_size: [16, 20, 24]
 
+  text str: 'Fonts can be loaded locally', font: 'ChunkFive 16',
+       x: 475, y: 350
+
   text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint',
        hint: :red,
        x: 65, y: 400,
