@@ -1,4 +1,4 @@
-# encoding: utf-8
+# encoding: UTF-8
 require 'squib'
 
 Squib::Deck.new(layout: 'custom-layout.yml') do
