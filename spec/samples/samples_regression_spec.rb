@@ -66,7 +66,8 @@ describe "Squib samples" do
       load sample
       # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
-      expect(log.string).to eq(test_file_str)
+      logstr = log.string.force_encoding('iso-8859-1').encode('utf-8')
+      expect(logstr).to eq(test_file_str)
     end
   end
 
