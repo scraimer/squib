@@ -64,16 +64,16 @@ def mock_cairo(strio)
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
     triangle line_to operator= show_page).each do |m|
-    allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
+    allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args.inspect})\n") }
   end
 
   %w(font_description= text= width= height= wrap= ellipsize= alignment=
     justify= spacing= markup=).each do |m|
-    allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args})\n") }
+    allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args.inspect})\n") }
   end
 
   %w(write_to_png).each do |m|
-    allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args})\n") }
+    allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args.inspect})\n") }
   end
 end
 
