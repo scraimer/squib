@@ -2,5 +2,8 @@ language: ruby
 rvm:
   - 2.0.0
   - 2.1.2
-before_install: gem install bundler --version '~> 1.6' 
-
+env:
+  global:
+    - LC_ALL=en_US.UTF-8
+    - LANG=en_US.UTF-8
+    - LANGUAGE=en_US.UTF-8
