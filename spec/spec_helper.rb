@@ -44,6 +44,11 @@ def scrub_hex(str)
      .gsub(/RGB:\w{1,8}/,'RGB:')
 end
 
+def escape(str)
+  # str.bytes.to_a.map(&:chr).join.inspect
+  str
+end
+
 # Build a mock cairo instance that allows basically any method
 # and logs that call to the string buffer
 def mock_cairo(strio)
@@ -64,16 +69,16 @@ def mock_cairo(strio)
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
     triangle line_to operator= show_page).each do |m|
-    allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args.inspect})\n") }
+    allow(cxt).to receive(m) { |*args| strio.puts scrub_hex("cairo: #{m}(#{args})\n") }
   end
 
   %w(font_description= text= width= height= wrap= ellipsize= alignment=
     justify= spacing= markup=).each do |m|
-    allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args.inspect})\n") }
+    allow(pango).to receive(m) {|*args| strio.puts scrub_hex("pango: #{m}(#{args})\n") }
   end
 
   %w(write_to_png).each do |m|
-    allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args.inspect})\n") }
+    allow(surface).to receive(m) { |*args| strio.puts scrub_hex("surface: #{m}(#{args})\n") }
   end
 end
 

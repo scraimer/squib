@@ -62,12 +62,11 @@ describe("Squib samples") do
   ).each do |sample|
     it "has not changed for #{sample}" do
       log = StringIO.new
-      log.set_encoding("UTF-8")
       mock_cairo(log)
       load sample
       # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
-      expect(log.string).to eq(test_file_str)
+      expect(escape(log.string)).to eq(escape(test_file_str))
     end
   end
 
