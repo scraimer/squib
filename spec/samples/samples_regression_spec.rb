@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'squib'
 require 'pp'
 
-describe "Squib samples" do
+describe("Squib samples") do
   let(:samples_dir) { "#{File.expand_path(File.dirname(__FILE__))}/../../samples/" }
 
   around(:each) do |example|
@@ -62,12 +62,12 @@ describe "Squib samples" do
   ).each do |sample|
     it "has not changed for #{sample}" do
       log = StringIO.new
+      log.set_encoding("UTF-8")
       mock_cairo(log)
       load sample
       # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
-      logstr = log.string.force_encoding('iso-8859-1').encode('utf-8')
-      expect(logstr).to eq(test_file_str)
+      expect(log.string).to eq(test_file_str)
     end
   end
 
