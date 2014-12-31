@@ -47,7 +47,7 @@ describe "Squib samples" do
       # text_options.rb
   %w( hello_world.rb
       autoscale_font.rb
-      save_pdf.rb
+      save.rb
       custom_config.rb
       load_images.rb
       basic.rb

@@ -135,4 +135,20 @@ describe Squib::InputHelpers do
     end
   end
 
+  context '#rowify' do
+    it 'does nothing on an integer' do
+      opts = @deck.send(:rowify, {columns: 2, rows: 2})
+      expect(opts).to eq({ columns: 2,
+                           rows: 2
+                        })
+    end
+
+    it 'computes properly on non-integer' do
+      opts = @deck.send(:rowify, {columns: 1, rows: :infinite})
+      expect(opts).to eq({ columns: 2,
+                           rows: 1
+                        })
+    end
+  end
+
 end

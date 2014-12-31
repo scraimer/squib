@@ -27,6 +27,7 @@ module Squib
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
       opts = rotateify(opts) if params.include? :rotate
+      opts = rowify(opts) if params.include? :rows
       opts
     end
     module_function :needs
@@ -189,6 +190,18 @@ module Squib
       opts
     end
     module_function :svgidify
+
+    # Handles expanding rows. If the "rows" does not respond to to_i (e.g. :infinite),
+    # then compute what we need based on number of cards and number of columns.
+    # :nodoc:
+    # @api private
+    def rowify(opts)
+      unless opts[:rows].respond_to? :to_i
+        raise "Columns must be an integer" unless opts[:columns].respond_to? :to_i
+        opts[:rows] = @cards.size / opts[:columns].to_i + 1
+      end
+      opts
+    end
 
   end
 end
